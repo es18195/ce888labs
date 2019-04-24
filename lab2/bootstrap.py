@@ -3,11 +3,21 @@ matplotlib.use('Agg')
 import pandas as pd
 import seaborn as sns
 import numpy as np
+import random
 
 
 def boostrap(sample, sample_size, iterations):
-	# <---INSERT YOUR CODE HERE--->
-	return data_mean, lower, upper
+    bootstrap_matrix= np.zeros([iterations,sample_size])
+
+    for i in range(iterations):
+        for s in range(sample_size):
+            bootstrap_matrix[i,s]=random.choice(sample)
+        
+    iteration_mean = np.mean(bootstrap_matrix, axis=1)
+    data_mean = np.mean(iteration_mean)
+    lower=np.percentile(iteration_mean,2.5)
+    upper=np.percentile(iteration_mean,97.5)
+    return data_mean, lower, upper
 
 
 if __name__ == "__main__":
